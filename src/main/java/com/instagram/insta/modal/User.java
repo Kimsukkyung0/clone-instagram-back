@@ -2,9 +2,7 @@ package com.instagram.insta.modal;
 
 import com.instagram.insta.dto.UserDto;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,6 +13,8 @@ import java.util.Set;
 @Table(name="user")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Builder
 @ToString(exclude = "password")
 public class User {
 
