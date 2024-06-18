@@ -48,6 +48,12 @@ public class UserServiceImplement implements UserService{
     }
 
     @Override
+    public List<User> findUserByIds(List<Integer> userId) throws UserException {
+        List<User> users = userRep.findAllUserByUserIds(userId);
+        return users;
+    }
+
+    @Override
     public User findUserProfile(String token) throws UserException {
         return null;
     }
@@ -66,22 +72,97 @@ public class UserServiceImplement implements UserService{
         User reqUser = findUserById(reqUserId);
         User followUser = findUserById(followUserId);
 
-        UserDto follower = new UserDto(followUser);
-        return "";
+        UserDto follower = new UserDto();
+        follower.setEmail(reqUser.getEmail());
+        follower.setId(reqUser.getUserId());
+        follower.setName(reqUser.getName());
+        follower.setUserImage(reqUser.getImage());
+        follower.setUsername(reqUser.getUsername());
+
+        UserDto following = new UserDto();
+        follower.setEmail(follower.getEmail());
+        follower.setId(follower.getId());
+        follower.setName(follower.getName());
+        follower.setUserImage(follower.getUserImage());
+        follower.setUsername(follower.getUsername());
+
+        reqUser.getFollowing().add(following);
+        followUser.getFollower().add(follower);
+
+        userRep.save(reqUser);
+        userRep.save(followUser);
+        return "you are following "+followUser.getUsername();
     }
 
     @Override
     public String unfollowUser(Integer reqUserId, Integer followUserId) throws UserException {
-        return "";
+        User reqUser = findUserById(reqUserId);
+        User followUser = findUserById(followUserId);
+
+        UserDto follower = new UserDto();
+        follower.setEmail(reqUser.getEmail());
+        follower.setId(reqUser.getUserId());
+        follower.setName(reqUser.getName());
+        follower.setUserImage(reqUser.getImage());
+        follower.setUsername(reqUser.getUsername());
+
+        UserDto following = new UserDto();
+        follower.setEmail(follower.getEmail());
+        follower.setId(follower.getId());
+        follower.setName(follower.getName());
+        follower.setUserImage(follower.getUserImage());
+        follower.setUsername(follower.getUsername());
+
+        reqUser.getFollowing().remove(following);
+        followUser.getFollower().remove(follower);
+
+        userRep.save(reqUser);
+        userRep.save(followUser);
+        return "you have unfollowed "+followUser.getUsername();
     }
 
     @Override
     public List<User> searchUser(String query) throws UserException {
-        return List.of();
+        List<User> users = userRep.findByQuery(query);
+        if(users.size() == 0){
+            throw new UserException("user does not exists");
+        }
+        return users;
     }
 
     @Override
-    public User updateUserDetails(User updatedUser) throws UserException {
-        return null;
+    public User updateUserDetails(User updatedUser,User existingUser) throws UserException {
+        if(updatedUser.getEmail()!=null){
+            existingUser.setEmail(updatedUser.getEmail());
+        }
+        if(updatedUser.getUsername()!=null){
+            existingUser.setUsername(updatedUser.getUsername());
+        }
+        if(updatedUser.getPassword()!=null){
+            existingUser.setUserId(updatedUser.getUserId());
+        }
+        if(updatedUser.getImage()!=null){
+            existingUser.setImage(updatedUser.getImage());
+        }
+        if (updatedUser.getBio()!=null){
+            existingUser.setBio(updatedUser.getBio());
+        }
+        if(updatedUser.getName()!=null){
+            existingUser.setName(updatedUser.getName());
+        }
+        if(updatedUser.getMobile()!=null){
+            existingUser.setMobile(updatedUser.getMobile());
+        }
+        if(updatedUser.getGender()!=null){
+            existingUser.setGender(updatedUser.getGender());
+        }
+        if(updatedUser.getWebsite()!=null){
+            existingUser.setWebsite(updatedUser.getWebsite());
+        }
+        if(updatedUser.getUserId().equals(existingUser.getUserId())){
+            return userRep.save(existingUser);
+        }
+        throw new UserException("can not update user details");
+
     }
 }
