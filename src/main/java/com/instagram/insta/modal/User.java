@@ -3,6 +3,7 @@ package com.instagram.insta.modal;
 import com.instagram.insta.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -45,4 +46,6 @@ public class User {
     @ManyToMany
     private List<Post> savedPost = new ArrayList<>();
 
+    public User(String email, String password, List<GrantedAuthority> grantedAuthorities) {
+    }
 }
