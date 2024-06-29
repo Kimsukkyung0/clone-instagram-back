@@ -1,10 +1,10 @@
-package com.instagram.controller;
+package com.example.cloneinstagramback.controller;
 
 
-import com.instagram.Response.MessageResponse;
-import com.instagram.exception.UserException;
-import com.instagram.insta.modal.User;
-import com.instagram.service.UserService;
+import com.example.cloneinstagramback.Response.MessageResponse;
+import com.example.cloneinstagramback.exception.UserException;
+import com.example.cloneinstagramback.insta.modal.User;
+import com.example.cloneinstagramback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/id/{userId}")
-    public ResponseEntity<User> findUserByIdHandler(@PathVariable Integer userId) throws UserException {
+    public ResponseEntity<User> findUserByIdHandler(@PathVariable Long userId) throws UserException {
         User user = userService.findUserById(userId);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -33,13 +33,13 @@ public class UserController {
     }
 
     @PutMapping("/follow/{followUserId}")
-    public ResponseEntity<MessageResponse> followerUserHandler(@PathVariable Integer followUserId){
+    public ResponseEntity<MessageResponse> followerUserHandler(@PathVariable Long followUserId){
 //        MessageResponse res = userService.followUser(followUserId);
         return null;
     }
 
     @PutMapping("/unfollow/{followUserId}")
-    public ResponseEntity<MessageResponse> unfollowUserHandler(@PathVariable Integer unfollowUserId){
+    public ResponseEntity<MessageResponse> unfollowUserHandler(@PathVariable Long unfollowUserId){
 //        MessageResponse res = userService.followUser(followUserId);
         return null;
     }
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/m/{userIds}")
-    public ResponseEntity<List<User>> findUserByUserIdsHandler(@PathVariable List<Integer> userIds) throws UserException {
+    public ResponseEntity<List<User>> findUserByUserIdsHandler(@PathVariable List<Long> userIds) throws UserException {
         List<User> users = userService.findUserByIds(userIds);
         return new ResponseEntity<>(users, HttpStatus.OK);
 

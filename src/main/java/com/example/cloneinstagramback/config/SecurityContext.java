@@ -1,4 +1,4 @@
-package com.instagram.config;
+package com.example.cloneinstagramback.config;
 
 public class SecurityContext {
     public static final String JWT_KEY = "Donghae0Mul--InstAgram1049fj";

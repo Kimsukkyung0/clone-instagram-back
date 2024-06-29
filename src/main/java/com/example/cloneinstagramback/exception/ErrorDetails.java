@@ -1,4 +1,4 @@
-package com.instagram.exception;
+package com.example.cloneinstagramback.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

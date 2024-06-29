@@ -1,7 +1,7 @@
-package com.instagram.service;
+package com.example.cloneinstagramback.service;
 
-import com.instagram.insta.modal.User;
-import com.instagram.repository.UserRepository;
+import com.example.cloneinstagramback.repository.UserRepository;
+import com.example.cloneinstagramback.insta.modal.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.aop.AopAutoConfiguration;
 import org.springframework.security.authentication.BadCredentialsException;

@@ -1,9 +1,9 @@
-package com.instagram.service;
+package com.example.cloneinstagramback.service;
 
-import com.instagram.exception.UserException;
-import com.instagram.insta.dto.UserDto;
-import com.instagram.insta.modal.User;
-import com.instagram.repository.UserRepository;
+import com.example.cloneinstagramback.exception.UserException;
+import com.example.cloneinstagramback.repository.UserRepository;
+import com.example.cloneinstagramback.insta.dto.UserDto;
+import com.example.cloneinstagramback.insta.modal.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +12,12 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImplement implements UserService{
+    private final UserRepository userRep;
 
     @Autowired
-    private UserRepository userRep;
+    public UserServiceImplement(UserRepository userRep) {
+        this.userRep = userRep;
+    }
 
     @Override
     public User registerUser(User user) throws UserException {
@@ -39,7 +42,7 @@ public class UserServiceImplement implements UserService{
     }
 
     @Override
-    public User findUserById(Integer userId) throws UserException {
+    public User findUserById(Long userId) throws UserException {
         Optional<User> opt = userRep.findById(userId);
         if(opt.isPresent()){
             return opt.get();
@@ -48,7 +51,7 @@ public class UserServiceImplement implements UserService{
     }
 
     @Override
-    public List<User> findUserByIds(List<Integer> userId) throws UserException {
+    public List<User> findUserByIds(List<Long> userId) throws UserException {
         List<User> users = userRep.findAllUserByUserIds(userId);
         return users;
     }
@@ -68,7 +71,7 @@ public class UserServiceImplement implements UserService{
     }
 
     @Override
-    public String followUser(Integer followUserId, Integer reqUserId) throws UserException {
+    public String followUser(Long followUserId, Long reqUserId) throws UserException {
         User reqUser = findUserById(reqUserId);
         User followUser = findUserById(followUserId);
 
@@ -95,7 +98,7 @@ public class UserServiceImplement implements UserService{
     }
 
     @Override
-    public String unfollowUser(Integer reqUserId, Integer followUserId) throws UserException {
+    public String unfollowUser(Long reqUserId, Long followUserId) throws UserException {
         User reqUser = findUserById(reqUserId);
         User followUser = findUserById(followUserId);
 

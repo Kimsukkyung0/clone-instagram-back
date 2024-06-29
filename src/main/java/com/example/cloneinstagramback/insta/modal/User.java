@@ -1,6 +1,6 @@
-package com.instagram.insta.modal;
+package com.example.cloneinstagramback.insta.modal;
 
-import com.instagram.insta.dto.UserDto;
+import com.example.cloneinstagramback.insta.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,7 +21,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer userId;
+    private Long userId;
     private String name;
     private String username;
     private String email;
@@ -32,11 +32,9 @@ public class User {
     private String image;
     private String password;
 
-    @Embedded
     @ElementCollection
     private Set<UserDto> follower = new HashSet<>();
 
-    @Embedded
     @ElementCollection
     private Set<UserDto> following = new HashSet<>();
 

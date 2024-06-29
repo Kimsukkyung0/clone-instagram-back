@@ -1,9 +1,9 @@
-package com.instagram.controller;
+package com.example.cloneinstagramback.controller;
 
-import com.instagram.exception.UserException;
-import com.instagram.insta.modal.User;
-import com.instagram.repository.UserRepository;
-import com.instagram.service.UserService;
+import com.example.cloneinstagramback.exception.UserException;
+import com.example.cloneinstagramback.insta.modal.User;
+import com.example.cloneinstagramback.repository.UserRepository;
+import com.example.cloneinstagramback.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

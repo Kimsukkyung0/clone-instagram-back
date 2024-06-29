@@ -1,26 +1,24 @@
-package com.instagram.insta.modal;
+package com.example.cloneinstagramback.insta.modal;
 
-
-import com.instagram.insta.dto.UserDto;
+import com.example.cloneinstagramback.insta.dto.UserDto;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
-@Table(name="comments")
+@Table(name="Stories")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Comment {
+@Data
+public class Story {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long storyId;
 
-    private Integer commentId;
-
-    @Embedded
     @AttributeOverrides({
             @AttributeOverride(name = "id",
                     column = @Column(name = "user-id")),
@@ -28,14 +26,8 @@ public class Comment {
     })
     private UserDto user;
 
-    private String content;
-
-    @Embedded
-    @ElementCollection
-    private Set<UserDto> likedByUsers = new HashSet<UserDto>();
-
-    private LocalDateTime createdAt;
-
-
-
+    @NotNull
+    private String image;
+    private String caption;
+    private LocalDateTime timestamp;
 }

@@ -1,4 +1,4 @@
-package com.instagram.Response;
+package com.example.cloneinstagramback.Response;
 
 public class MessageResponse {
     private String message;

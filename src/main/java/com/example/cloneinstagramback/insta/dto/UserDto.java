@@ -1,10 +1,12 @@
-package com.instagram.insta.dto;
+package com.example.cloneinstagramback.insta.dto;
 
+import jakarta.persistence.Embeddable;
 import lombok.Data;
 
+@Embeddable
 @Data
 public class UserDto {
-    private Integer id;
+    private Long id;
     private String username;
     private String email;
     private String name;

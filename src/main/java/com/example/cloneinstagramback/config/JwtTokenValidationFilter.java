@@ -1,4 +1,4 @@
-package com.instagram.config;
+package com.example.cloneinstagramback.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
