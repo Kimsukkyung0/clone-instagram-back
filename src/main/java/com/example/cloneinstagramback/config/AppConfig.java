@@ -19,13 +19,14 @@ public class AppConfig {
     @Bean
     public SecurityFilterChain securityConfiguration(HttpSecurity http) throws Exception{
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST,"/signup").permitAll()
-                                                    .anyRequest().authenticated())
+                .authorizeHttpRequests(authorize -> authorize.requestMatchers(HttpMethod.POST
+                                ,"/signup","/error","/**").permitAll()
+                                .requestMatchers("/swagger-ui/**","/api-docs/**").permitAll().anyRequest().authenticated())
                 .addFilterAfter(new JwtTokenGeneratorFilter() , BasicAuthenticationFilter.class)
                 .addFilterBefore(new JwtTokenValidationFilter(),BasicAuthenticationFilter.class)
-                .csrf(AbstractHttpConfigurer::disable)
-                .formLogin().disable()
-                .httpBasic().disable();
+                .csrf(csrf -> csrf.disable());
+//                .formLogin().disable()
+//                .httpBasic().disable();
         return http.build();
     }
 

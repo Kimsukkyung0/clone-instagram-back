@@ -37,8 +37,9 @@ public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
 
             response.setHeader(SecurityContext.HEADER, jwt);
 
+        }else if(!shouldNotFiltered(request)){
+            filterChain.doFilter(request,response);
         }
-        filterChain.doFilter(request,response);
     }
 
         public String populateAuthorities(Collection<? extends GrantedAuthority> collection){
@@ -51,6 +52,7 @@ public class JwtTokenGeneratorFilter extends OncePerRequestFilter {
         }
 
         protected boolean shouldNotFiltered(HttpServletRequest req) throws ServletException{
-            return !req.getServletPath().equals("/signIn");
+                String servletPath =  req.getServletPath();
+                return servletPath.equals("/signIn") || servletPath.equals("/swagger-ui/**") || servletPath.equals("/api-docs/**");
         }
     }

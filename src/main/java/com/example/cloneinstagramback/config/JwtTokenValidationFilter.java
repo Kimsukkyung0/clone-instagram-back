@@ -24,7 +24,9 @@ public class JwtTokenValidationFilter extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String jwt = request.getHeader(SecurityContext.HEADER);
-        if(!jwt.isEmpty()){
+        if(!shouldNotFilter(request)){
+            filterChain.doFilter(request,response);
+        }else if(!jwt.isEmpty()){
             try{
                 jwt.substring(7);
 
@@ -46,10 +48,11 @@ public class JwtTokenValidationFilter extends OncePerRequestFilter{
             }
         }
 
-        filterChain.doFilter(request,response);
+
     }
 
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException{
-        return request.getServletPath().equals("/signIn");
+        String servletPath =  request.getServletPath();
+        return servletPath.equals("/signIn") || servletPath.equals("/swagger-ui/**") || servletPath.equals("/api-docs/**");
     }
 }
