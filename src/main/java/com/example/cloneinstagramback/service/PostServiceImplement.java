@@ -3,10 +3,15 @@ package com.example.cloneinstagramback.service;
 import com.example.cloneinstagramback.exception.PostException;
 import com.example.cloneinstagramback.exception.UserException;
 import com.example.cloneinstagramback.insta.modal.Post;
+import com.example.cloneinstagramback.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class PostServiceImplement implements PostService{
+    @Autowired
+    private PostRepository postRep;
+
     @Override
     public Post createPost(Post post) throws UserException {
         return null;

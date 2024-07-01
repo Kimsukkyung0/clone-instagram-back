@@ -3,10 +3,13 @@ package com.example.cloneinstagramback.service;
 import com.example.cloneinstagramback.exception.PostException;
 import com.example.cloneinstagramback.exception.UserException;
 import com.example.cloneinstagramback.insta.modal.Post;
+import com.example.cloneinstagramback.repository.PostRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public interface PostService {
+
     Post createPost(Post post) throws UserException;
     String deletePost(Long postId, Long userId) throws UserException, PostException;
     List<Post> findPostListByUserId(Long userId) throws UserException;
