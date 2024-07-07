@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface PostService {
 
-    Post createPost(Post post) throws UserException;
+    Post createPost(Post post, Long userId) throws UserException;
     String deletePost(Long postId, Long userId) throws UserException, PostException;
     List<Post> findPostListByUserId(Long userId) throws UserException;
     Post findPostByPostId(Long postId) throws PostException;

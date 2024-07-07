@@ -3,6 +3,7 @@ package com.example.cloneinstagramback.insta.modal;
 import com.example.cloneinstagramback.insta.dto.UserDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
@@ -16,6 +17,7 @@ import java.util.Set;
 @Table(name="posts")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -6,7 +6,6 @@ import lombok.Data;
 public class JwtTokenClaims {
 
     private String username;
-
-
+    private String email;
 
 }

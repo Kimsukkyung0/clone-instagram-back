@@ -4,6 +4,8 @@ import com.example.cloneinstagramback.exception.UserException;
 import com.example.cloneinstagramback.repository.UserRepository;
 import com.example.cloneinstagramback.insta.dto.UserDto;
 import com.example.cloneinstagramback.insta.modal.User;
+import com.example.cloneinstagramback.security.JwtTokenClaims;
+import com.example.cloneinstagramback.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +14,16 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImplement implements UserService{
+    @Autowired
     private final UserRepository userRep;
 
     @Autowired
-    public UserServiceImplement(UserRepository userRep) {
+    private final JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    public UserServiceImplement(UserRepository userRep, JwtTokenProvider jwtTokenProvider) {
         this.userRep = userRep;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
 
     @Override
@@ -58,7 +65,15 @@ public class UserServiceImplement implements UserService{
 
     @Override
     public User findUserProfile(String token) throws UserException {
-        return null;
+        token = token.substring(7);
+        JwtTokenClaims jwtTokenClaims = jwtTokenProvider.getClaimsFromToken(token);
+        String email = jwtTokenClaims.getEmail();
+
+        Optional<User> opt = userRep.findByEmail(email);
+        if(opt.isPresent()){
+            return opt.get();
+        }
+           throw new UserException("can not find a user By an email : "+email);
     }
 
     @Override
