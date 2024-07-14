@@ -30,7 +30,7 @@ public class AuthController {
         return new ResponseEntity<User>(regUser, HttpStatus.OK);
     }
 
-    @GetMapping("/signIn")
+    @PostMapping("/signIn")
     public ResponseEntity<User> signInHandler(Authentication auth) throws BadCredentialsException {
             Optional<User> opt = userRep.findByEmail(auth.getName());
 
